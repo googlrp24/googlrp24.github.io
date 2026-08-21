@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARTXQDEV | Official Fan Club</title>
+    <style>
+        :root {
+            --bg-color: #0e0e10;
+            --card-bg: #18181b;
+            --text-main: #ffffff;
+            --text-muted: #a1a1aa;
+            --charli-green: #89cc04; /* Brat green */
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-image: radial-gradient(circle at top, #2a2a30 0%, #0e0e10 40%);
+        }
+
+        /* Language Switcher */
+        .lang-switcher {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+            background: var(--card-bg);
+            padding: 10px 15px;
+            border-radius: 12px;
+            border: 1px solid #27272a;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            z-index: 100;
+        }
+
+        .lang-btn {
+            background: transparent;
+            border: 2px solid transparent;
+            font-size: 1.5rem;
+            cursor: pointer;
+            border-radius: 8px;
+            padding: 5px;
+            transition: all 0.3s;
+            line-height: 1;
+        }
+
+        .lang-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .lang-btn.active {
+            border-color: var(--charli-green);
+            background: rgba(137, 204, 4, 0.1);
+        }
+
+        .fanclub-container {
+            width: 100%;
+            max-width: 600px;
+            background: var(--card-bg);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border: 1px solid #27272a;
+            margin: 100px 20px 40px 20px;
+        }
+
+        .banner {
+            background-color: #000;
+            height: 180px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            font-weight: 900;
+            color: white;
+            letter-spacing: -2px;
+            text-transform: uppercase;
+            border-bottom: 4px solid var(--charli-green);
+        }
+
+        .profile-section {
+            padding: 0 30px 30px 30px;
+            position: relative;
+        }
+
+        .profile-image-wrapper {
+            margin-top: -60px;
+            display: flex;
+            align-items: flex-end;
+            gap: 15px;
+        }
+
+        .profile-image {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 6px solid var(--card-bg);
+            object-fit: cover;
+            background-color: #333;
+        }
+
+        .status-indicator {
+            width: 25px;
+            height: 25px;
+            background-color: #f23f42; /* DND red */
+            border-radius: 50%;
+            border: 4px solid var(--card-bg);
+            position: absolute;
+            left: 110px;
+            top: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .status-indicator::after {
+            content: "";
+            width: 12px;
+            height: 4px;
+            background-color: white;
+            border-radius: 2px;
+        }
+
+        .username {
+            font-size: 2rem;
+            font-weight: 800;
+            margin: 15px 0 5px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .sub-info {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+
+        .badges {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            letter-spacing: 5px;
+        }
+
+        .info-box {
+            background: #27272a;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            border-left: 4px solid var(--charli-green);
+        }
+
+        .info-box h3 {
+            margin: 0 0 15px 0;
+            font-size: 1.2rem;
+            color: var(--charli-green);
+            text-transform: uppercase;
+        }
+
+        .info-box p {
+            margin: 10px 0;
+            line-height: 1.5;
+            padding-bottom: 5px;
+            border-bottom: 1px dashed #3f3f46;
+        }
+        
+        .info-box p:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .highlight {
+            color: var(--text-main);
+            font-weight: bold;
+        }
+
+        .bff-badge {
+            display: inline-block;
+            background: rgba(137, 204, 4, 0.15);
+            border: 1px solid var(--charli-green);
+            padding: 4px 8px;
+            border-radius: 6px;
+            color: var(--charli-green);
+            font-weight: 700;
+        }
+
+        .links-section {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .link-btn {
+            display: block;
+            text-align: center;
+            padding: 15px;
+            background-color: #3f3f46;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .link-btn:hover {
+            background-color: var(--charli-green);
+            color: black;
+            transform: translateY(-2px);
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #27272a;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Selector de idioma flotante -->
+    <div class="lang-switcher">
+        <button id="btn-en" class="lang-btn active" onclick="setLanguage('en')" title="English">🇬🇧</button>
+        <button id="btn-ru" class="lang-btn" onclick="setLanguage('ru')" title="Русский">🇷🇺</button>
+        <button id="btn-kk" class="lang-btn" onclick="setLanguage('kk')" title="Қазақша">🇰🇿</button>
+    </div>
+
+    <div class="fanclub-container">
+        <div class="banner">#SWAG</div>
+        
+        <div class="profile-section">
+            <div class="profile-image-wrapper">
+                <img src="image_4f625f.png" alt="ARTXQDEV Profile" class="profile-image">
+                <div class="status-indicator"></div>
+            </div>
+
+            <h1 class="username">artq.lol 🔊</h1>
+            <div class="sub-info">
+                artq_bitch • sterva, dont dm <span style="background: #333; padding: 2px 6px; border-radius: 4px; font-size: 0.8rem; margin-left: 5px; color:white;">🎵 GAGA</span>
+            </div>
+
+            <div class="badges">
+                🖥️ 💿 🔺 ⚙️ 🎁
+            </div>
+
+            <div class="info-box">
+                <h3 id="t-title">👑 Official Fan Club</h3>
+                <p id="t-location">📍 <span class="highlight">Location:</span> Kazakhstan 🇰🇿</p>
+                <p id="t-music">🍏 <span class="highlight">Music Status:</span> Listening to Charli XCX on loop (Brat summer all year long).</p>
+                <p id="t-vibe">💻 <span class="highlight">Vibe:</span> #SWAG, Hacker vibes & Do not disturb.</p>
+                <p id="t-langs">🗣️ <span class="highlight">Languages:</span> Speaks English and Russian.</p>
+                <p id="t-bff"><span class="bff-badge">🎀 Best Friend: dmitryb737</span></p>
+            </div>
+
+            <div class="links-section">
+                <a href="https://guns.lol/artqbitch" target="_blank" class="link-btn" id="t-btn1">🔫 Visit guns.lol/artqbitch</a>
+                <a href="#" class="link-btn" style="background-color: var(--text-main); color: black;" id="t-btn2">💬 Send Message (At your own risk)</a>
+            </div>
+
+            <div class="footer" id="t-footer">
+                ARTXQDEV Official Fan Page © 2026
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const i18n = {
+            en: {
+                title: "👑 Official Fan Club",
+                location: "📍 <span class='highlight'>Location:</span> Kazakhstan 🇰🇿",
+                music: "🍏 <span class='highlight'>Music Status:</span> Listening to Charli XCX on loop (Brat summer all year long).",
+                vibe: "💻 <span class='highlight'>Vibe:</span> #SWAG, Hacker vibes & Do not disturb.",
+                langs: "🗣️ <span class='highlight'>Languages:</span> Speaks English and Russian.",
+                bff: "<span class='bff-badge'>🎀 Best Friend: dmitryb737</span>",
+                btn1: "🔫 Visit guns.lol/artqbitch",
+                btn2: "💬 Send Message (At your own risk)",
+                footer: "ARTXQDEV Official Fan Page © 2026"
+            },
+            ru: {
+                title: "👑 Официальный Фан-клуб",
+                location: "📍 <span class='highlight'>Местоположение:</span> Казахстан 🇰🇿",
+                music: "🍏 <span class='highlight'>Музыка:</span> Слушает Charli XCX на повторе (Brat summer круглый год).",
+                vibe: "💻 <span class='highlight'>Вайб:</span> #SWAG, Хакерский стиль и Не беспокоить.",
+                langs: "🗣️ <span class='highlight'>Языки:</span> Говорит по-английски и по-русски.",
+                bff: "<span class='bff-badge'>🎀 Лучший друг: dmitryb737</span>",
+                btn1: "🔫 Посетить guns.lol/artqbitch",
+                btn2: "💬 Отправить сообщение (На свой страх)",
+                footer: "Официальная фан-страница ARTXQDEV © 2026"
+            },
+            kk: {
+                title: "👑 Ресми Фан-клуб",
+                location: "📍 <span class='highlight'>Орналасқан жері:</span> Қазақстан 🇰🇿",
+                music: "🍏 <span class='highlight'>Музыка:</span> Charli XCX қайталап тыңдауда (Жыл бойы Brat summer).",
+                vibe: "💻 <span class='highlight'>Вайб:</span> #SWAG, Хакер стилі және Мазаламаңыз.",
+                langs: "🗣️ <span class='highlight'>Тілдері:</span> Ағылшын және орыс тілдерінде сөйлейді.",
+                bff: "<span class='bff-badge'>🎀 Ең жақын досы: dmitryb737</span>",
+                btn1: "🔫 guns.lol/artqbitch сайтына кіру",
+                btn2: "💬 Хабарлама жіберу (Өз тәуекеліңізбен)",
+                footer: "ARTXQDEV Ресми фан-парақшасы © 2026"
+            }
+        };
+
+        function setLanguage(lang) {
+            // Actualizar botones visualmente
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById('btn-' + lang).classList.add('active');
+
+            // Actualizar textos
+            for (const key in i18n[lang]) {
+                const el = document.getElementById('t-' + key);
+                if (el) el.innerHTML = i18n[lang][key];
+            }
+        }
+    </script>
+</body>
+</html>
