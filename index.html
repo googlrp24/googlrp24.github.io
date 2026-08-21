@@ -10,7 +10,7 @@
             --card-bg: #18181b;
             --text-main: #ffffff;
             --text-muted: #a1a1aa;
-            --charli-green: #89cc04; /* Brat green */
+            --charli-green: #89cc04;
         }
 
         body {
@@ -26,7 +26,6 @@
             background-image: radial-gradient(circle at top, #2a2a30 0%, #0e0e10 40%);
         }
 
-        /* Language Switcher */
         .lang-switcher {
             position: absolute;
             top: 20px;
@@ -59,6 +58,41 @@
         .lang-btn.active {
             border-color: var(--charli-green);
             background: rgba(137, 204, 4, 0.1);
+        }
+
+        .music-controls {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: var(--card-bg);
+            padding: 10px 15px;
+            border-radius: 12px;
+            border: 1px solid #27272a;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 100;
+        }
+
+        .music-btn {
+            background: transparent;
+            border: none;
+            color: var(--charli-green);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .music-btn:hover {
+            transform: scale(1.2);
+        }
+        
+        .music-status {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .fanclub-container {
@@ -110,7 +144,7 @@
         .status-indicator {
             width: 25px;
             height: 25px;
-            background-color: #f23f42; /* DND red */
+            background-color: #f23f42;
             border-radius: 50%;
             border: 4px solid var(--card-bg);
             position: absolute;
@@ -228,7 +262,15 @@
 </head>
 <body>
 
-    <!-- Selector de idioma flotante -->
+    <div class="music-controls">
+        <button class="music-btn" id="playPauseBtn" onclick="togglePlay()">▶️</button>
+        <span class="music-status" id="musicLabel">Brat Summer 🍏</span>
+        <audio id="bgMusic" loop>
+            <source src="https://raw.githubusercontent.com/googlrp24/googlrp24.github.io/refs/heads/main/Bearwolf%20-%20%D0%A4%D0%B5%D0%BD%D0%B8%D0%BA%D1%81%20(pesni.fm).mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+    </div>
+
     <div class="lang-switcher">
         <button id="btn-en" class="lang-btn active" onclick="setLanguage('en')" title="English">🇬🇧</button>
         <button id="btn-ru" class="lang-btn" onclick="setLanguage('ru')" title="Русский">🇷🇺</button>
@@ -274,6 +316,24 @@
     </div>
 
     <script>
+        const audio = document.getElementById("bgMusic");
+        const playBtn = document.getElementById("playPauseBtn");
+        const musicLabel = document.getElementById("musicLabel");
+        let isPlaying = false;
+
+        function togglePlay() {
+            if (isPlaying) {
+                audio.pause();
+                playBtn.innerHTML = "▶️";
+                musicLabel.innerHTML = "Music Paused ⏸️";
+            } else {
+                audio.play();
+                playBtn.innerHTML = "⏸️";
+                musicLabel.innerHTML = "Playing Vibes 🍏";
+            }
+            isPlaying = !isPlaying;
+        }
+
         const i18n = {
             en: {
                 title: "👑 Official Fan Club",
@@ -311,11 +371,9 @@
         };
 
         function setLanguage(lang) {
-            // Actualizar botones visualmente
             document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
             document.getElementById('btn-' + lang).classList.add('active');
 
-            // Actualizar textos
             for (const key in i18n[lang]) {
                 const el = document.getElementById('t-' + key);
                 if (el) el.innerHTML = i18n[lang][key];
